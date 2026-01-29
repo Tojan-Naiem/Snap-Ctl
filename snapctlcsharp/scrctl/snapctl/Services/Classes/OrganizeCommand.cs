@@ -3,7 +3,11 @@ public class OrganizeCommand : ICommand
     public void Execute(string args)
     {
         string screenshotPath=args;
-        CreateDirectory(screenshotPath,"person");
+        for(int i = 0; i < Categories.categories.Length; i++)
+        {
+            CreateDirectory(screenshotPath,Categories.categories[i]);
+
+        }
 
         Console.WriteLine(args);
     }
