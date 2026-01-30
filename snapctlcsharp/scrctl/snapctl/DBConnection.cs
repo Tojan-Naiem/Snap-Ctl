@@ -10,7 +10,36 @@ public class DBConnection
     }
     public void SetUpDatabase()
     {
-        sqliteConnection.Open();
+        try
+        {
+         sqliteConnection.Open();
+         CreateTable();
 
+        }catch(SqliteException ex)
+        {
+            Console.WriteLine("Exception in sqlite "+ex.GetBaseException());
+        }
+        sqliteConnection.Close();
+
+
+    }
+    public void CreateTable()
+    {
+        try
+        {
+
+         SqliteCommand sqlite_cmd;
+        using var command =sqliteConnection.CreateCommand();
+        string CreateTable="CREATE TABLE ImageText (Id INT PRIMARY KEY AUTOINCREMENT , Text VARCHAR(1000))";
+        sqlite_cmd=sqliteConnection.CreateCommand();
+        sqlite_cmd.CommandText=CreateTable;
+        sqlite_cmd.ExecuteNonQuery();
+
+        }catch(SqliteException ex)
+        {
+         Console.WriteLine("Exception in sqlite "+ex.GetBaseException());
+
+        }
+        
     }
 }
