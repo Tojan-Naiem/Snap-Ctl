@@ -42,4 +42,24 @@ public class DBConnection
         }
         
     }
+    public void InsertData(string text)
+    {
+         try
+        {
+
+         SqliteCommand sqlite_cmd;
+        using var command =sqliteConnection.CreateCommand();
+        string InsertValue="INSERT INTO ImageText (Text) VALUES ($text))";
+        sqlite_cmd=sqliteConnection.CreateCommand(); 
+        sqlite_cmd.CommandText=InsertValue;
+        sqlite_cmd.Parameters.AddWithValue("$text",text);
+        sqlite_cmd.ExecuteNonQuery();
+
+        }catch(SqliteException ex)
+        {
+         Console.WriteLine("Exception in sqlite "+ex.GetBaseException());
+
+        }
+        
+    }
 }
