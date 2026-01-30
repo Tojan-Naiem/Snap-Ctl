@@ -20,7 +20,7 @@ public class ImageClassifier
         textOnnxPath=_textOnnxPath;
         textEmbeddingsPath=_textEmbeddingsPath;
     }
-    public void classifyImage(string imagePath)
+    public string classifyImage(string imagePath)
     {
            
         using Image<Rgb24> image = Image.Load<Rgb24>(imagePath);
@@ -82,7 +82,7 @@ public class ImageClassifier
 
         int bestIndex = Array.IndexOf(simiaritites, simiaritites.Max());
         Console.WriteLine($"📂 Classified as: {labels[bestIndex]}");
-
+        return labels[bestIndex];
 
     }
 }

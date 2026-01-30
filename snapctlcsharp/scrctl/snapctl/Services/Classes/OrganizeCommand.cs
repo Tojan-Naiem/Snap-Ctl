@@ -1,10 +1,28 @@
+using SixLabors.ImageSharp;
+
 public class OrganizeCommand : ICommand
 {
+    private ImageClassifier ImageClassifier;
     public void Execute(string args)
     {
-        string screenshotPath=args;
-       CreateDirectories(screenshotPath);
-        Console.WriteLine(args);
+        ImageClassifier=new ImageClassifier("/home/tojan/Documents/Python Projects/snapctl/py/clip_image.onnx",
+        "/home/tojan/Documents/Python Projects/snapctl/py/clip_text.onnx",
+        "/home/tojan/Documents/Python Projects/snapctl/py/text_embeddings.bin"
+        );
+        string path=args;
+        string [] myFiles=Directory.GetFiles(path);
+        CreateDirectories(path);
+        Console.WriteLine("My files : ");
+        foreach(var filePath in myFiles)
+        {
+           string dirName=ImageClassifier.classifyImage(filePath);
+           string newFilePath=path+"/"+dirName+"/"+filePath.Substring(filePath.LastIndexOf("/"));
+           Console.WriteLine(filePath);
+           Console.WriteLine(newFilePath);
+           File.Copy(filePath,newFilePath);
+           File.Delete(filePath);
+        }
+
     }
     public void CreateDirectories(string path)
     {
