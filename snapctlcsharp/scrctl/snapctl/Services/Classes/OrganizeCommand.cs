@@ -20,7 +20,7 @@ public class OrganizeCommand : ICommand
         string path=args[2];
             if (!Directory.Exists(path))
             {
-                Console.WriteLine("Unvalid Path!");
+                Console.WriteLine("Invalid Path!");
                 return;
             }
         string [] myFiles=Directory.GetFiles(path);
