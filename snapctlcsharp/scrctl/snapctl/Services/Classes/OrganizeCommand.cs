@@ -18,7 +18,6 @@ public class OrganizeCommand : ICommand
             return;
         }
         string path=args[2];
-        Console.WriteLine(path);
             if (!Directory.Exists(path))
             {
                 Console.WriteLine("Unvalid Path!");
@@ -37,7 +36,7 @@ public class OrganizeCommand : ICommand
         }
         catch(Exception e)
         {
-            Console.WriteLine(e.ToString());
+            Console.WriteLine("Exception happen ! "+e.ToString());
         }
        
     }
@@ -51,7 +50,9 @@ public class OrganizeCommand : ICommand
     }
     public void CreateDirectory(string path,string dirName)
     {
-        string newDir=path+"/"+dirName;
+        try
+        {
+             string newDir=path+"/"+dirName;
         if (Directory.Exists(newDir))
         {
             Console.WriteLine("Directory "+dirName+" already exists");
@@ -64,7 +65,12 @@ public class OrganizeCommand : ICommand
             return;
         }
         Console.WriteLine("Successfully created Directory "+dirName+" !!");
-
+  
+        }catch(Exception e)
+        {
+            Console.WriteLine("Exception Happen ! "+e.GetBaseException());
+        }
+     
         
     }
 
