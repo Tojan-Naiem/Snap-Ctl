@@ -18,11 +18,9 @@ public class Program
             if (args[0] == "snapy")
             {
             ICommand command=null;
-            int startIndex=2,count=startIndex-1;
             if (args[1] == "organize")
             {
                 command=new OrganizeCommand();
-                count=startIndex-1;
             }
                 else if(args[1]=="search")
                 {
@@ -35,7 +33,7 @@ public class Program
 
 
             if(command!=null)
-            command.Execute(string.Join(" ",args,startIndex,count));
+            command.Execute(args);
             }
            
         }

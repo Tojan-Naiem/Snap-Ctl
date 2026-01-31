@@ -3,7 +3,7 @@ using SixLabors.ImageSharp;
 public class OrganizeCommand : ICommand
 {
     private ImageClassifier ImageClassifier;
-    public void Execute(string args)
+    public void Execute(string []args)
     {
         // create Image Classifier and add pathes for onnx
         ImageClassifier=new ImageClassifier("/home/tojan/Documents/Python Projects/snapctl/py/clip_image.onnx",
@@ -12,7 +12,17 @@ public class OrganizeCommand : ICommand
         );
         try
         {
-        string path=args;
+        if (args.Length != 3)
+        {
+            Console.WriteLine("Use the required structure!");
+            return;
+        }
+        string path=args[2];
+            if (!Directory.Exists(path))
+            {
+                Console.WriteLine("Invalid Path!");
+                return;
+            }
         string [] myFiles=Directory.GetFiles(path);
         CreateDirectories(path);
         foreach(var filePath in myFiles)
@@ -26,7 +36,7 @@ public class OrganizeCommand : ICommand
         }
         catch(Exception e)
         {
-            Console.WriteLine(e.ToString());
+            Console.WriteLine("Exception happen ! "+e.ToString());
         }
        
     }
@@ -40,7 +50,9 @@ public class OrganizeCommand : ICommand
     }
     public void CreateDirectory(string path,string dirName)
     {
-        string newDir=path+"/"+dirName;
+        try
+        {
+             string newDir=path+"/"+dirName;
         if (Directory.Exists(newDir))
         {
             Console.WriteLine("Directory "+dirName+" already exists");
@@ -53,7 +65,12 @@ public class OrganizeCommand : ICommand
             return;
         }
         Console.WriteLine("Successfully created Directory "+dirName+" !!");
-
+  
+        }catch(Exception e)
+        {
+            Console.WriteLine("Exception Happen ! "+e.GetBaseException());
+        }
+     
         
     }
 
