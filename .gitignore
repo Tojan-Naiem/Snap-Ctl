@@ -184,3 +184,7 @@ project.assets.json
 
 # VS Code workspace storage
 .vscode/*storage*
+
+#tessdata
+eng.traineddata
+ara.traineddata
