@@ -18,16 +18,17 @@ public class Program
             if (args[0] == "snapy")
             {
             ICommand command=null;
-            if (args[1] == "organize")
+            if (args[1].ToUpper()=="ORGANIZE")
             {
                 command=new OrganizeCommand();
             }
-                else if(args[1]=="search")
-                {
-                    command=new SearchCommand();
-                    
+            else if(args[1].ToUpper()=="SEARCH")
+            {
+                    command=new SearchCommand();    
+            }
+            else if(args[1].ToUpper()=="RESTART")
+                command=new RestartCommand();
 
-                }
 
 
             if(command!=null)
