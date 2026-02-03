@@ -78,20 +78,20 @@ public class DBConnection
                 using (SqliteCommand md = conn.CreateCommand())
                 {
                     md.CommandText = @"SELECT Path,Text FROM ImageText WHERE Text Like $searchText";
-                    md.Parameters.AddWithValue("$searchText", searchText);
+                    md.Parameters.AddWithValue("$searchText", "%" + searchText + "%");
                     SqliteDataReader r = md.ExecuteReader();
-                    int flag=0;
+                    int flag = 0;
                     while (r.Read())
                     {
                         string path = r.GetString(0);
                         string text = r.GetString(1);
                         Console.WriteLine("Path : " + path);
-                        Console.WriteLine("Text : " + text);
+                      //  Console.WriteLine("Text : " + text);
                         Console.WriteLine("------");
-                        flag=1;
+                        flag = 1;
 
                     }
-                    if(flag==0)Console.WriteLine("Not Found");
+                    if (flag == 0) Console.WriteLine("Not Found");
                     conn.Close();
                 }
 
