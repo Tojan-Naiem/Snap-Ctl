@@ -109,24 +109,36 @@ public class DBConnection
 
     public bool IsImageProcessed(string path)
     {
-        using (SqliteConnection conn = new SqliteConnection("Data Source=textFiles.db"))
+        try
         {
-            conn.Open();
-            using (SqliteCommand md = conn.CreateCommand())
+            using (SqliteConnection conn = new SqliteConnection("Data Source=textFiles.db"))
             {
-                md.CommandText="SELECT Path FROM ImageText WHERE path=$path";
-                md.Parameters.AddWithValue("$path",path);
-                SqliteDataReader r = md.ExecuteReader();
-                if (!r.HasRows)
+                conn.Open();
+                using (SqliteCommand md = conn.CreateCommand())
                 {
-                    return true;
+                    md.CommandText = "SELECT Path FROM ImageText WHERE path=$path";
+                    md.Parameters.AddWithValue("$path", path);
+                    SqliteDataReader r = md.ExecuteReader();
+                    if (!r.HasRows)
+                    {
+                        return true;
+                    }
+                    return false;
+
                 }
-                return false;
-
-            }       
 
 
+            }
         }
+        catch (SqliteException ex)
+        {
+            Console.WriteLine("Exception in sqlite " + ex.GetBaseException());
+            return false;
+        }
+
+    }
+    public void CleanDB()
+    {
 
     }
 
