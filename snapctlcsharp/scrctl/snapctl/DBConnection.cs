@@ -86,7 +86,6 @@ public class DBConnection
                     {
                         string path = r.GetString(0);
                         Console.WriteLine("Path : " + path);
-                        //  Console.WriteLine("Text : " + text);
                         Console.WriteLine("------");
                         flag = 1;
 
@@ -119,7 +118,7 @@ public class DBConnection
                     md.CommandText = "SELECT Path FROM ImageText WHERE path=$path";
                     md.Parameters.AddWithValue("$path", path);
                     SqliteDataReader r = md.ExecuteReader();
-                    if (!r.HasRows)
+                    if (r.HasRows)
                     {
                         return true;
                     }
