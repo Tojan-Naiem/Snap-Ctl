@@ -55,7 +55,7 @@ public class DBConnection
         sqlite_cmd.CommandText=InsertValue;
         sqlite_cmd.Parameters.AddWithValue("$text",text);
         sqlite_cmd.ExecuteNonQuery();
-        sqliteConnection.Close();
+                sqliteConnection.Close();
 
         }catch(SqliteException ex)
         {
