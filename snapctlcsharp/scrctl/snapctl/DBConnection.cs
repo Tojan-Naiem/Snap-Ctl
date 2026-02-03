@@ -48,6 +48,7 @@ public class DBConnection
     {
         try
         {
+
             sqliteConnection.Open();
 
             SqliteCommand sqlite_cmd;
@@ -85,7 +86,7 @@ public class DBConnection
                     {
                         string path = r.GetString(0);
                         Console.WriteLine("Path : " + path);
-                      //  Console.WriteLine("Text : " + text);
+                        //  Console.WriteLine("Text : " + text);
                         Console.WriteLine("------");
                         flag = 1;
 
@@ -103,5 +104,29 @@ public class DBConnection
             Console.WriteLine("Exception in sqlite " + ex.GetBaseException());
 
         }
+    }
+
+
+    public bool IsImageProcessed(string path)
+    {
+        using (SqliteConnection conn = new SqliteConnection("Data Source=textFiles.db"))
+        {
+            conn.Open();
+            using (SqliteCommand md = conn.CreateCommand())
+            {
+                md.CommandText="SELECT Path FROM ImageText WHERE path=$path";
+                md.Parameters.AddWithValue("$path",path);
+                SqliteDataReader r = md.ExecuteReader();
+                if (!r.HasRows)
+                {
+                    return false;
+                }
+                return true;
+
+            }       
+
+
+        }
+
     }
 }
