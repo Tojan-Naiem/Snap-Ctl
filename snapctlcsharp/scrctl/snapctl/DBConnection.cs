@@ -68,7 +68,7 @@ public class DBConnection
 
         }
     }
-    public void SearchTextFromDBS(string searchText)
+    public static void SearchTextFromDBS(string searchText)
     {
         try
         {
@@ -80,6 +80,7 @@ public class DBConnection
                     md.CommandText = @"SELECT Path,Text FROM ImageText WHERE Text Like $searchText";
                     md.Parameters.AddWithValue("$searchText", searchText);
                     SqliteDataReader r = md.ExecuteReader();
+                    int flag=0;
                     while (r.Read())
                     {
                         string path = r.GetString(0);
@@ -87,8 +88,10 @@ public class DBConnection
                         Console.WriteLine("Path : " + path);
                         Console.WriteLine("Text : " + text);
                         Console.WriteLine("------");
+                        flag=1;
 
                     }
+                    if(flag==0)Console.WriteLine("Not Found");
                     conn.Close();
                 }
 
