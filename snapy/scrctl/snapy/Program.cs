@@ -12,32 +12,62 @@ public class Program
 {
     public static void Main(string[] args)
     {
-     
-        if(args.Length>0)
+
+        Console.WriteLine("\n  ═══════════════════════════════════════════");
+        Console.WriteLine("  SNAPY - Screenshot Organizer");
+        Console.WriteLine("  ═══════════════════════════════════════════\n");
+
+        string setUpMarker = Path.Combine(AppContext.BaseDirectory, ".setup_complete");
+        if (!File.Exists(setUpMarker))
         {
-            if (args[0] == "snapy")
-            {
-            ICommand command=null;
-            if (args[1].ToUpper()=="ORGANIZE")
-            {
-                command=new OrganizeCommand();
-            }
-            else if(args[1].ToUpper()=="SEARCH")
-            {
-                    command=new SearchCommand();    
-            }
-            else if(args[1].ToUpper()=="RESTART")
-                command=new RestartCommand();
-
-
-
-            if(command!=null)
-            command.Execute(args);
-            }
-           
+            Console.WriteLine("  ⚠️  Setup not completed!");
+            Console.WriteLine("  Please run './setup.sh' first.\n");
+            return;
         }
-        
-    }
-    
+        Console.WriteLine("Im here");
+        if (args.Length == 0)
+        {
+            ShowHelp();
+            return;
+        }
+        ICommand command = args[0].ToUpper() switch
+        {
+            "ORGANIZE" => new OrganizeCommand(),
+            "SEARCH" => new SearchCommand(),
+            "RESTART" => new RestartCommand()
+        };
+        if (command == null)
+        {
+            Console.WriteLine("Unknown command : " + args[0]);
+            ShowHelp();
+            return;
+        }
 
+
+        try
+        {
+            command.Execute(args);
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"\n  ❌ Error: {ex.Message}");
+
+            Console.WriteLine($"  Stack trace: {ex.StackTrace}\n");
+        }
+
+
+
+
+
+    }
+
+    private static void ShowHelp()
+    {
+        Console.WriteLine("  Available commands:");
+        Console.WriteLine("    snapy organize <path>        - Organize screenshots");
+        Console.WriteLine("    snapy search <text> from <path> - Search in screenshots");
+        Console.WriteLine("    snapy restart <path>         - Undo organization");
+        Console.WriteLine();
+    }
 }

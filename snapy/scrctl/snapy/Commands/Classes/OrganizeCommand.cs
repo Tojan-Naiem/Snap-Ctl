@@ -13,12 +13,12 @@ public class OrganizeCommand : ICommand
         );
         try
         {
-        if (args.Length != 3)
+        if (args.Length != 2)
         {
             Console.WriteLine("Use the required structure!");
             return;
         }
-        string path=args[2];
+        string path=args[1];
             if (!Directory.Exists(path))
             {
                 Console.WriteLine("Invalid Path!");

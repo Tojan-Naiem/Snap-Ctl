@@ -3,13 +3,13 @@ public class SearchCommand : ICommand
 {
         public void Execute(string[] args)
     {
-        if (args.Length !=5||args[3].ToUpper() != "FROM")
+        if (args.Length !=4||args[2].ToUpper() != "FROM")
         {
             Console.WriteLine("Use the required structure!");
             return ;
         }
-        string FolderPath=args[4];
-        string searchData=args[2];
+        string FolderPath=args[3];
+        string searchData=args[1];
       
         if (!Directory.Exists(FolderPath))
         {

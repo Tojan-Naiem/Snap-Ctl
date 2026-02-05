@@ -2,12 +2,12 @@ public class RestartCommand : ICommand
 {
     public void Execute(string[] args)
     {
-        if (args.Length != 3)
+        if (args.Length != 2)
         {
             Console.WriteLine("Use the required structure!");
             return ;
         }
-        string FolderPath=args[2];
+        string FolderPath=args[1];
         if (!Directory.Exists(FolderPath))
         {
             Console.WriteLine("Invalid Path!");
