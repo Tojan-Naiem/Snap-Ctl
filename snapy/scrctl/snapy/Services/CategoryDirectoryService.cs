@@ -24,4 +24,14 @@ public class CategoryDirectoryService : DirectoryService
         }
 
     }
+    public static int CountCategoryFiles(string dirPath,string categoryName)
+    {
+        string path=Path.Combine(dirPath,categoryName);
+        if (CheckDirectory(path))
+        {
+            return CountFiles(path);
+        }
+        else return -1;
+    }
+
 }

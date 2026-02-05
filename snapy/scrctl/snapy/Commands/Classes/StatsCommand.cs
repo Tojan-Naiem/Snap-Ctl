@@ -18,7 +18,17 @@ public class StatsCommand:ISnapyCommand
         Console.WriteLine("Total files :"+DirectoryService.CountFiles(FolderPath));
         Console.WriteLine($"Total size: {DirectoryService.TotoalFilesLength(FolderPath)}");
 
-        
+        foreach(var category in Categories.categories)
+        {
+            long countCategory=CategoryDirectoryService.CountCategoryFiles(FolderPath,category);
+            if (countCategory == -1)
+            {
+                Console.WriteLine("Error in counting categories");
+                return;
+            }
+            Console.WriteLine($"{category} : {countCategory}");
+            
+        }
     }
    
     

@@ -36,5 +36,10 @@ public class DirectoryService
         }
         return $"{size:F2}{units[unit]}";
     }
+    public static bool CheckDirectory(string dirPath)
+    {
+        if(Directory.Exists(dirPath))return true;
+        else return false;
+    }
      
 }
