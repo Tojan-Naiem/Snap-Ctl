@@ -1,5 +1,5 @@
 
-public class SearchCommand : ICommand
+public class SearchCommand : ISnapyCommand
 {
         public void Execute(string[] args)
     {

@@ -1,6 +1,6 @@
 using SixLabors.ImageSharp;
 
-public class OrganizeCommand : ICommand
+public class OrganizeCommand : ISnapyCommand
 {
     private ImageClassifier ImageClassifier;
     public void Execute(string []args)
