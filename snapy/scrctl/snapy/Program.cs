@@ -18,22 +18,28 @@ public class Program
         Console.WriteLine("  ═══════════════════════════════════════════\n");
 
         string setUpMarker = Path.Combine(AppContext.BaseDirectory, ".setup_complete");
-        if (!File.Exists(setUpMarker))
+        bool isDev=args.Length>0&&args[0]=="--dev";
+        if (isDev)
         {
-            Console.WriteLine("  ⚠️  Setup not completed!");
-            Console.WriteLine("  Please run './setup.sh' first.\n");
-            return;
+            args=args.Skip(1).ToArray();
         }
+        // if (!File.Exists(setUpMarker))
+        // {
+        //     Console.WriteLine("  ⚠️  Setup not completed!");
+        //     Console.WriteLine("  Please run './setup.sh' first.\n");
+        //     return;
+        // }
         if (args.Length == 0)
         {
             ShowHelp();
             return;
         }
-        ICommand command = args[0].ToUpper() switch
+        ISnapyCommand command = args[0].ToUpper() switch
         {
             "ORGANIZE" => new OrganizeCommand(),
             "SEARCH" => new SearchCommand(),
-            "RESTART" => new RestartCommand()
+            "RESTART" => new RestartCommand(),
+            "STATS"=>new StatsCommand()
         };
         if (command == null)
         {

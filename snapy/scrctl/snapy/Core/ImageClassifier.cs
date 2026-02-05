@@ -70,6 +70,7 @@ public class ImageClassifier
 
         float[] simiaritites = new float[labels.Length];
         long dim = imageFeatures.Length;
+
         for (int i = 0; i < labels.Length; i++)
         {
             float dot = 0;
