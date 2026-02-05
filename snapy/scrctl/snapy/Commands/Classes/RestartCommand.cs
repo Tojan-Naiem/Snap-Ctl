@@ -1,4 +1,4 @@
-public class RestartCommand : ICommand
+public class RestartCommand : ISnapyCommand
 {
     public void Execute(string[] args)
     {

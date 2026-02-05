@@ -24,7 +24,6 @@ public class Program
             Console.WriteLine("  Please run './setup.sh' first.\n");
             return;
         }
-        Console.WriteLine("Im here");
         if (args.Length == 0)
         {
             ShowHelp();
