@@ -1,10 +1,10 @@
 
 public class ImageInfoService
 {
-    private readonly ImageTextRepository conn;
+    private readonly SqliteRepository conn;
     public ImageInfoService()
     {
-        conn=new ImageTextRepository();
+        conn=new SqliteRepository();
                  conn.SetUpDatabase();
 
     }

@@ -24,11 +24,11 @@ public class Program
             args=args.Skip(1).ToArray();
         }
         if (!File.Exists(setUpMarker))
-        {
-            Console.WriteLine("  Setup not completed!");
-            Console.WriteLine("  Please run './setup.sh' first.\n");
-            return;
-        }
+        // {
+        //     Console.WriteLine("  Setup not completed!");
+        //     Console.WriteLine("  Please run './setup.sh' first.\n");
+        //     return;
+        // }
         if (args.Length == 0)
         {
             ShowHelp();

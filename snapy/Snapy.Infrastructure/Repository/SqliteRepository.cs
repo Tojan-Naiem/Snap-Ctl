@@ -4,6 +4,7 @@ using Microsoft.Data.Sqlite;
 
 public class SqliteRepository
 {
+    private const string DatabaseName="textFiles";
     public SqliteRepository()
     {
     }
@@ -11,16 +12,13 @@ public class SqliteRepository
     {
         try
         {
-
             CreateTable();
-
 
         }
         catch (SqliteException ex)
         {
             Console.WriteLine("Exception in sqlite " + ex.GetBaseException());
         }
-        sqliteConnection.Close();
 
 
     }
@@ -28,7 +26,7 @@ public class SqliteRepository
     {
         try
         {
-            using (SqliteConnection conn = new SqliteConnection("Data Source=textFiles.db"))
+            using (SqliteConnection conn = new SqliteConnection($"Data Source={DatabaseName}.db"))
             {
                 conn.Open();
                 using (SqliteCommand md = conn.CreateCommand())
@@ -52,7 +50,7 @@ public class SqliteRepository
         try
         {
 
-            using (SqliteConnection conn = new SqliteConnection("Data Source=textFiles.db"))
+            using (SqliteConnection conn = new SqliteConnection($"Data Source={DatabaseName}.db"))
             {
                 conn.Open();
                 using (SqliteCommand md = conn.CreateCommand())
@@ -76,7 +74,7 @@ public class SqliteRepository
     {
         try
         {
-            using (SqliteConnection conn = new SqliteConnection("Data Source=textFiles.db"))
+            using (SqliteConnection conn = new SqliteConnection($"Data Source={DatabaseName}.db"))
             {
                 conn.Open();
                 using (SqliteCommand md = conn.CreateCommand())
@@ -113,7 +111,7 @@ public class SqliteRepository
     {
         try
         {
-            using (SqliteConnection conn = new SqliteConnection("Data Source=textFiles.db"))
+            using (SqliteConnection conn = new SqliteConnection($"Data Source={DatabaseName}.db"))
             {
                 conn.Open();
                 using (SqliteCommand md = conn.CreateCommand())
@@ -143,7 +141,7 @@ public class SqliteRepository
     {
         try
         {
-            using (SqliteConnection conn = new SqliteConnection("Data Source=textFiles.db"))
+            using (SqliteConnection conn = new SqliteConnection($"Data Source={DatabaseName}.db"))
             {
                 conn.Open();
                 using (SqliteCommand md = conn.CreateCommand())
@@ -167,7 +165,7 @@ public class SqliteRepository
     {
         try
         {
-            using (SqliteConnection conn = new SqliteConnection("Data Source=textFiles.db"))
+            using (SqliteConnection conn = new SqliteConnection($"Data Source={DatabaseName}.db"))
             {
                 conn.Open();
                 using (SqliteCommand md = conn.CreateCommand())
