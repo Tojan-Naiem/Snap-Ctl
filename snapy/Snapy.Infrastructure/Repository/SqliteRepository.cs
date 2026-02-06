@@ -2,19 +2,18 @@ using System.Data.Common;
 using System.Reflection.Metadata.Ecma335;
 using Microsoft.Data.Sqlite;
 
-public class ImageTextRepository
+public class SqliteRepository
 {
-    private SqliteConnection sqliteConnection;
-    public ImageTextRepository()
+    public SqliteRepository()
     {
-        sqliteConnection = new SqliteConnection("Data Source=textFiles.db");
     }
     public void SetUpDatabase()
     {
         try
         {
-            sqliteConnection.Open();
+
             CreateTable();
+
 
         }
         catch (SqliteException ex)
@@ -29,13 +28,16 @@ public class ImageTextRepository
     {
         try
         {
+            using (SqliteConnection conn = new SqliteConnection("Data Source=textFiles.db"))
+            {
+                conn.Open();
+                using (SqliteCommand md = conn.CreateCommand())
+                {
 
-            SqliteCommand sqlite_cmd;
-            using var command = sqliteConnection.CreateCommand();
-            string CreateTable = "CREATE TABLE IF NOT EXISTS ImageText (Id INT PRIMARY KEY  ,Path Text, Text TEXT)";
-            sqlite_cmd = sqliteConnection.CreateCommand();
-            sqlite_cmd.CommandText = CreateTable;
-            sqlite_cmd.ExecuteNonQuery();
+                    md.CommandText = "CREATE TABLE IF NOT EXISTS ImageText (Id INT PRIMARY KEY  ,Path Text, Text TEXT)";
+                    md.ExecuteNonQuery();
+                }
+            }
 
         }
         catch (SqliteException ex)
@@ -50,18 +52,18 @@ public class ImageTextRepository
         try
         {
 
-            sqliteConnection.Open();
+            using (SqliteConnection conn = new SqliteConnection("Data Source=textFiles.db"))
+            {
+                conn.Open();
+                using (SqliteCommand md = conn.CreateCommand())
+                {
 
-            SqliteCommand sqlite_cmd;
-            using var command = sqliteConnection.CreateCommand();
-            string InsertValue = "INSERT INTO ImageText (Path,Text) VALUES ($path,$text)";
-            sqlite_cmd = sqliteConnection.CreateCommand();
-            sqlite_cmd.CommandText = InsertValue;
-            sqlite_cmd.Parameters.AddWithValue("$text", text);
-            sqlite_cmd.Parameters.AddWithValue("$path", path);
-
-            sqlite_cmd.ExecuteNonQuery();
-            sqliteConnection.Close();
+                    md.CommandText = "INSERT INTO ImageText (Path,Text) VALUES ($path,$text)";
+                    md.Parameters.AddWithValue("$text", text);
+                    md.Parameters.AddWithValue("$path", path);
+                    md.ExecuteNonQuery();
+                }
+            }
 
         }
         catch (SqliteException ex)
@@ -174,7 +176,7 @@ public class ImageTextRepository
                     md.Parameters.AddWithValue("$path", path);
                     using var r = md.ExecuteReader();
                     if (!r.Read()) return null;
-                    if (r.IsDBNull(0)) return null;
+                    if (r.IsDBNull(0)) return null; // if the text is null
                     string text = r.GetString(0);
 
                     return text;
