@@ -23,4 +23,9 @@
        </None> -->
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Snapy.Core\Snapy.Core.csproj" />
+      <ProjectReference Include="..\Snapy.Infrastructure\Snapy.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>
