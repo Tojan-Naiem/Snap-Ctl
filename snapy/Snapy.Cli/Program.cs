@@ -23,12 +23,12 @@ public class Program
         {
             args=args.Skip(1).ToArray();
         }
-        // if (!File.Exists(setUpMarker))
-        // {
-        //     Console.WriteLine("  ⚠️  Setup not completed!");
-        //     Console.WriteLine("  Please run './setup.sh' first.\n");
-        //     return;
-        // }
+        if (!File.Exists(setUpMarker))
+        {
+            Console.WriteLine("  Setup not completed!");
+            Console.WriteLine("  Please run './setup.sh' first.\n");
+            return;
+        }
         if (args.Length == 0)
         {
             ShowHelp();
@@ -59,7 +59,7 @@ public class Program
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"\n  ❌ Error: {ex.Message}");
+            Console.WriteLine($"\n  Error: {ex.Message}");
 
             Console.WriteLine($"  Stack trace: {ex.StackTrace}\n");
         }
