@@ -9,7 +9,6 @@ public class SearchCommand : ISnapyCommand
             return ;
         }
         string searchData=args[1];
-      
         SqliteRepository.SearchTextFromDBS(searchData);
 
     }
