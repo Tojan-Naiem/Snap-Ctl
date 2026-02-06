@@ -17,7 +17,7 @@ public class ImageTextExtractor
     {
         try
         {
-            ImageTextRepository connection = new ImageTextRepository();
+            SqliteRepository connection = new SqliteRepository();
             connection.SetUpDatabase();
             string[] myFiles = Directory.GetFiles(folderPath);
             foreach (var file in myFiles)
@@ -40,7 +40,7 @@ public class ImageTextExtractor
     {
         try
         {
-            ImageTextRepository connection = new ImageTextRepository();
+            SqliteRepository connection = new SqliteRepository();
             connection.SetUpDatabase();
             if (!connection.IsImageProcessed(filePath))
                 {
