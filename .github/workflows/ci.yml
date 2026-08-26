@@ -1,0 +1,33 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.x
+
+      - name: Restore
+        run: dotnet restore snapy/snapy.sln
+
+      - name: Build
+        run: dotnet build snapy/snapy.sln --configuration Release --no-restore
+
+      - name: Test
+        run: >
+          dotnet test snapy/snapy.sln
+          --configuration Release
+          --no-build
+          --collect:"XPlat Code Coverage"
